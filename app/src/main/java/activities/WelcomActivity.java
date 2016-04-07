@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.hqyj.dev.ji.fs_sxt.R;
 
+/**
+ * the first view shown when the app start
+ */
 public class WelcomActivity extends AppCompatActivity {
 
     @Override
