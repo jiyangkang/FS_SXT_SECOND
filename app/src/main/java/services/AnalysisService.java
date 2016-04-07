@@ -11,9 +11,32 @@ import android.support.annotation.Nullable;
  */
 public class AnalysisService extends Service{
 
+    private boolean threadOn = false;
+    private AnalysisThread mAnalysisThread = null;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    public class AnalysisThread extends Thread{
+        @Override
+        public void run() {
+            super.run();
+            while(threadOn){
+
+            }
+        }
     }
 }

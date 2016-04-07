@@ -34,6 +34,7 @@ public class UDPService extends Service{
 
         threadOn = false;
         try {
+            //when stopping thread send ENDTHREAD byte array
             DataTools.sends.put(DataTools.ENDTHREAD);
         } catch (InterruptedException e) {
             e.printStackTrace();

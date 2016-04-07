@@ -37,7 +37,9 @@ public class SoapService extends Service{
         super.onDestroy();
         threadOn = false;
         try {
-            DataTools.sends.put(DataTools.ENDTHREAD);
+
+             //when stop service, passing the ENDTHREAD byte array
+             DataTools.sends.put(DataTools.ENDTHREAD);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -100,9 +102,9 @@ public class SoapService extends Service{
                     stringBuilder.append(sendString)
                             .append(DataTools.userId)
                             .append(DataTools.DEVICE);
-                    String request = SoapTools.sendToserver(stringBuilder.toString());
+                    String request = SoapTools.sendToServer(stringBuilder.toString());
                     if (request != null && request.equalsIgnoreCase("ok")){
-
+                        Log.e("SOAP", "success");
                     }else {
                         Log.e("SOAP", "Can't Send");
                     }

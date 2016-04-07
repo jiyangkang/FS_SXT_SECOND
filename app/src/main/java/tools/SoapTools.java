@@ -18,6 +18,11 @@ import java.io.IOException;
  */
 public class SoapTools{
 
+    /**
+     * get information on the server by using special device name
+     * @param data device name
+     * @return null if error occurred and request information from server if success
+     */
     public static String getFromServer(String data){
         HttpTransportSE mHttpTransportSE = new HttpTransportSE(DataTools.webAddr);
         SoapObject mSoapObject = new SoapObject(DataTools.NAMESPACE, "CliGet");
@@ -55,8 +60,12 @@ public class SoapTools{
             return null;
         }
     }
-
-    public static String sendToserver(String data){
+    /**
+     * send CMD to the server by using special device name
+     * @param data CMDs and Device name
+     * @return null if error occurred and request information from server if success
+     */
+    public static String sendToServer(String data){
         HttpTransportSE mHttpTransportSE = new HttpTransportSE(DataTools.webAddr);
         SoapObject mSoapObject = new SoapObject(DataTools.NAMESPACE, "CliPut");
         SoapSerializationEnvelope mSoapSerializationEnvelope =
@@ -94,6 +103,12 @@ public class SoapTools{
         }
     }
 
+    /**
+     * check user name by passing name and password to the server
+     * @param name name of user
+     * @param pwd password of user
+     * @return null if error occurred or request from server
+     */
     public static String checkUser(String name, String pwd){
         HttpTransportSE mHttpTransportSE = new HttpTransportSE(DataTools.webAddr);
         SoapObject mSoapObject = new SoapObject(DataTools.NAMESPACE, "UserCheck");
@@ -132,6 +147,11 @@ public class SoapTools{
         }
     }
 
+    /**
+     * check connection of internet
+     * by pinging www.baidu.com
+     * @return false if error occured or true if get request
+     */
     public static boolean checkConnect(){
         String result = null;
         String ip = "www.baidu.com";
