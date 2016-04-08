@@ -6,4 +6,6 @@ package nodes.behavior;
  */
 public interface SendCMD {
     void sendCMD(int which);
+
+
 }
