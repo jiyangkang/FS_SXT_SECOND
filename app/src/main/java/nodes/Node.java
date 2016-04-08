@@ -1,5 +1,6 @@
 package nodes;
 
+
 import nodes.behavior.FillDatas;
 import nodes.behavior.SendCMD;
 
@@ -8,57 +9,63 @@ import nodes.behavior.SendCMD;
  * Created by jiyangkang on 2016/4/8 0008.
  */
 public abstract class Node {
-    private String name = null;
-    private String datas = null;
-    private byte[] orient = null;
+    private String name;
     private boolean isConnect = false;
-    private String stata = null;
+    private int reduceTime = 0;
 
-    FillDatas mFillDatas;
+    private IsConnect mIsConnect;
+
+    public CheckConnectThread mCheckConnectThread = null;
+
+    public void setCheckConnect(IsConnect mIsConnect) {
+        this.mIsConnect = mIsConnect;
+    }
+
     SendCMD mSendCMD;
+    FillDatas mFillDatas;
 
-    public Node(){
+    public void setReduceTime(int reduceTime) {
+        this.reduceTime = reduceTime;
+        if (!isConnect){
+            mCheckConnectThread = new CheckConnectThread();
+            mCheckConnectThread.start();
+            mIsConnect.isConnect(true);
+        }
+        isConnect = true;
+    }
+
+    public Node() {
 
     }
 
-    public void setOrient(byte[] orient) {
-        this.orient = orient;
-        mFillDatas.fillData(orient);
-    }
 
-    public byte[] getOrient() {
-        return orient;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setDatas(String datas) {
-        this.datas = datas;
+    private class CheckConnectThread extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            while (reduceTime > 0) {
+                reduceTime--;
+                try {
+                    sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            isConnect = false;
+            mIsConnect.isConnect(false);
+            this.interrupt();
+        }
     }
 
-    public void setIsConnect(boolean isConnect) {
-        this.isConnect = isConnect;
-    }
-
-    public void setStata(String stata) {
-        this.stata = stata;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDatas() {
-        return datas;
-    }
-
-    public boolean isConnect() {
-        return isConnect;
-    }
-
-    public String getStata() {
-        return stata;
+    public interface IsConnect {
+        void isConnect(boolean isConncet);
     }
 }

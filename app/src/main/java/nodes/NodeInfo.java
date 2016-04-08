@@ -9,6 +9,8 @@ import java.util.HashMap;
 
 public class NodeInfo {
 
+    public static final int REDUCETIME = 5;
+
     public static HashMap<byte[], String> hashList = new HashMap<>();
 
     static{
