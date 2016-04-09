@@ -22,8 +22,6 @@ public class FillAmmeterData implements FillDatas{
                 StringBuilder(StringTools.changeIntoHexString(datas, false));
         stringBuilder.insert(stringBuilder.toString().length() - 2, '.');
         mHashMap.put("电量", stringBuilder.toString());
-
         return mHashMap;
-
     }
 }

@@ -11,16 +11,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private EditText editText;
     private TextView textView;
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     String show = msg.obj.toString();
                     textView.setText(show);
@@ -30,6 +30,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     textView.setText(get);
                     break;
                 case 3:
+                    String mate = msg.obj.toString();
+                    textView.setText(mate);
                     break;
                 default:
                     break;
@@ -52,7 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn1:
                 Message msg = new Message();
 
@@ -69,23 +71,33 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 String num2 = editText.getText().toString();
                 Log.e("EDIT", num2);
                 int change = changeIntoInt(num2);
-                msg2.obj = change+"";
+                msg2.obj = change + "";
                 msg2.what = 2;
                 handler.sendMessage(msg2);
                 break;
             case R.id.btn3:
+                Message msg3 = new Message();
+                String num3 = editText.getText().toString();
+                byte[] datas = num3.getBytes();
+                byte[] dataByte = changeIntoByte(datas);
+                byte result = checkMata(dataByte);
+
+                Log.d("String", changeIntoHexString(result));
+                msg3.what = 3;
+                msg3.obj = changeIntoHexString(result);
+                handler.sendMessage(msg3);
                 break;
             default:
                 break;
         }
     }
 
-    public String changeIntoHexString(int data){
-        Log.e("EDIT", data+"");
+    public String changeIntoHexString(int data) {
+        Log.e("EDIT", data + "");
         StringBuilder stringBuilder = new StringBuilder();
         byte[] datas = new byte[4];
-        for (int i = datas.length - 1; i >= 0; i--){
-            datas[i] = (byte) (data >> (24 - i*8) & 0x00ff);
+        for (int i = datas.length - 1; i >= 0; i--) {
+            datas[i] = (byte) (data >> (24 - i * 8) & 0x00ff);
         }
 
         for (byte data1 : datas) {
@@ -93,13 +105,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
             byte b = (byte) (data1 & 0x0f);
 
             if (a > 9) {
-                char c = (char) (a+ 55);
+                char c = (char) (a + 55);
                 stringBuilder.append(c);
             } else {
                 stringBuilder.append(a);
             }
             if (b > 9) {
-                char c = (char) (b+ 55);
+                char c = (char) (b + 55);
                 stringBuilder.append(c);
             } else {
                 stringBuilder.append(b);
@@ -111,45 +123,73 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return stringBuilder.toString();
     }
 
-    public int changeIntoInt(String datas){
+    public byte[] changeIntoByte(byte[] datas){
+        for (int i = 0; i < datas.length; i++){
+            if (datas[i] != ' ') {
+                if (datas[i] >= 'a') {
+                    datas[i] -= ('a' - 10);
+
+                } else if (datas[i] >= 'A') {
+                    datas[i] -= ('A' - 10);
+                } else {
+                    datas[i] -= '0';
+                }
+                Log.e("DATA", datas[i] + "");
+            }
+        }
+        byte[] get = new byte[datas.length];
+        int j = 0;
+        for (int i = 0; i < datas.length; i++) {
+            if (datas[i] != ' ') {
+                get[j] = (byte) (datas[i] << 4 | datas[i + 1]);
+                i++;
+                Log.e("GET", get[j] + "");
+                j++;
+            }
+        }
+        byte[] result = new byte[j];
+        System.arraycopy(get, 0, result, 0, j);
+        return result;
+    }
+
+    public int changeIntoInt(String datas) {
 
         byte[] data = datas.getBytes();
 
-        for (int i = 0; i < data.length; i++){
-            if (data[i] != ' '){
-                if (data[i] >= 'a'){
-                    data[i] -= ('a'-10);
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] != ' ') {
+                if (data[i] >= 'a') {
+                    data[i] -= ('a' - 10);
 
-                } else if (data[i] >= 'A'){
-                    data[i] -= ('A' -10);
-                } else{
+                } else if (data[i] >= 'A') {
+                    data[i] -= ('A' - 10);
+                } else {
                     data[i] -= '0';
                 }
-                Log.e("DATA", data[i]+"");
+                Log.e("DATA", data[i] + "");
             }
         }
         byte[] get = new byte[data.length];
         int j = 0;
-        for (int i = 0; i < data.length; i++){
-            if (data[i] != ' '){
-                get[j] = (byte) (data[i] << 4 | data[i+1]);
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] != ' ') {
+                get[j] = (byte) (data[i] << 4 | data[i + 1]);
                 i++;
-                Log.e("GET", get[j]+"");
+                Log.e("GET", get[j] + "");
                 j++;
-
             }
         }
 
         int result = 0;
         short end[] = new short[j];
-        for (int i = 0; i < end.length; i++){
-            if (i == 0){
-                if (get[i] >= 0){
+        for (int i = 0; i < end.length; i++) {
+            if (i == 0) {
+                if (get[i] >= 0) {
                     end[i] = (short) (get[i] & 0x00ff);
-                }else{
+                } else {
                     end[i] = (short) (get[i] | 0xff00);
                 }
-            }else {
+            } else {
                 end[i] = (short) (get[i] & 0x00ff);
             }
         }
@@ -160,9 +200,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         for (short anEnd : end) {
             result = result << 8 | anEnd;
-            Log.e("result", result+"");
+            Log.e("result", result + "");
         }
 
         return result;
+    }
+
+    public byte checkMata(byte[] data) {
+        byte crc = 0x00;
+        if (data != null) {
+            for (byte aData : data) {
+                crc ^= aData;
+                for (int j = 0; j < 8; j++) {
+                    if ((crc & 0x80) != 0x00)
+                        crc = (byte) ((crc << 1) ^ 0x07);
+                    else
+                        crc <<= 1;
+                }
+            }
+            return crc;
+        }
+        return 0x00;
     }
 }

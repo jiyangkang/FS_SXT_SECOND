@@ -13,6 +13,12 @@ public class DataTools {
     public static final String ISUDP = "UDPMODE";
     public static final int ERROR = -9999;
 
+    public static String netType = "485";
+    public static final String NET485 = "485";
+    public static final String NETZIGBEE = "ZIGBEE";
+
+    public static final byte HEAD_RECEIVE = 0x21;
+
     public static final byte[] ENDTHREAD = {0x00, 0x00};
 
     public static final int UDPDATASIZE = 256;
