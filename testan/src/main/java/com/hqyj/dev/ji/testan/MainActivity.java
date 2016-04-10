@@ -11,6 +11,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private EditText editText;
@@ -50,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.btn1).setOnClickListener(this);
         findViewById(R.id.btn2).setOnClickListener(this);
         findViewById(R.id.btn3).setOnClickListener(this);
+        findViewById(R.id.btn4).setOnClickListener(this);
     }
 
     @Override
@@ -87,9 +93,46 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 msg3.obj = changeIntoHexString(result);
                 handler.sendMessage(msg3);
                 break;
+            case R.id.btn4:
+                UdpSendThread udpSendThread = new UdpSendThread();
+                udpSendThread.start();
+                break;
             default:
                 break;
         }
+    }
+
+    private class UdpSendThread extends Thread{
+        int i = 0;
+        @Override
+        public void run() {
+            super.run();
+            while(true){
+                sendUDP();
+                i++;
+                Log.d("UDP", i+"");
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void sendUDP(){
+        byte[] data= new byte[]{0x21, 0x01, 0x08, 0x00, 0x52, 0x00, 0x01, 0x43, 0x55, 0x10};
+        try {
+            MulticastSocket multicastSocket= new MulticastSocket(20000);
+            InetAddress group = InetAddress.getByName("224.10.10.10");
+            multicastSocket.joinGroup(group);
+            DatagramPacket datagramPacket = new DatagramPacket(data, data.length,group,20000);
+            multicastSocket.send(datagramPacket);
+            multicastSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String changeIntoHexString(int data) {

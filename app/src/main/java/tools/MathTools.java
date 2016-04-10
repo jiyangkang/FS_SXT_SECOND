@@ -125,6 +125,11 @@ public class MathTools {
     }
 
 
+    /**
+     * divide package into independent array byte
+     * @param data the package received
+     * @return list of array byte
+     */
     public static List<byte[]> divideData(byte[] data) {
         List<byte[]> result = new ArrayList<>();
         int length = 0;
@@ -139,11 +144,12 @@ public class MathTools {
                     break;
                 length = data[i + 1];
                 offset = data[i + 2];
-            }
+            } else
+                continue;
             if (i + length + offset + 1 > data.length)
                 continue;
             byte[] buffer = new byte[length + offset + 1];
-            System.arraycopy(data, i, buffer, 0, i + length + offset + 1);
+            System.arraycopy(data, i, buffer, 0, buffer.length);
             if (checkMata(buffer)) {
                 result.add(buffer);
                 i += length + offset;

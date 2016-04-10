@@ -4,8 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import tools.DataTools;
+import tools.StringTools;
 import tools.UdpTools;
 
 /**
@@ -49,6 +51,7 @@ public class UDPService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("UDPSERVICE", "UDPService start");
         threadOn = true;
         mGetThread = new GetThread();
         mGetThread.start();
@@ -66,9 +69,12 @@ public class UDPService extends Service{
         public void run() {
             super.run();
             while(threadOn){
+                Log.d("UDP", "UDPGETTHREAD--OK");
                 byte[] datas = UdpTools.getFromUDP();
                 if (datas != null){
                     try {
+                        Log.d("get", StringTools.changeIntoHexString(datas, true));
+                        Log.d("addr", DataTools.serverIP);
                         DataTools.gets.put(datas);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

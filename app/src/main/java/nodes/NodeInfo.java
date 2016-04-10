@@ -10,6 +10,11 @@ import java.util.HashMap;
 public class NodeInfo {
 
     public static final int REDUCETIME = 5;
+    public static final byte SMARTAG = 0x01;
+    public static final byte SMARTHS = 0x02;
+
+    public static final byte NET485 = 0x52;
+    public static final byte NETZIGBEE = 0x5A;
 
     public static HashMap<byte[], String> hashList = new HashMap<>();
 

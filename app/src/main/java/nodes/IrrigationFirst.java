@@ -1,6 +1,7 @@
 package nodes;
 
 /**
+ *
  * Created by jiyangkang on 2016/4/9 0009.
  */
 public class IrrigationFirst extends Node{
