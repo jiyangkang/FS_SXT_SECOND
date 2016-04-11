@@ -3,6 +3,7 @@ package nodes;
 
 import nodes.behavior.FillDatas;
 import nodes.behavior.SendCMD;
+import tools.DataTools;
 
 /**
  * base Node
@@ -12,6 +13,24 @@ public abstract class Node {
     private String name;
     private boolean isConnect = false;
     private int reduceTime = 0;
+    private byte[] addr;
+
+    public void setAddr(byte[] addr) {
+        this.addr = addr;
+        name = NodeInfo.hashList.get(addr);
+    }
+
+    public byte[] getAddr() {
+        return addr;
+    }
+
+    public byte getNetType() {
+        return NodeInfo.netType;
+    }
+
+    public void setNetType(byte netType) {
+        NodeInfo.netType = netType;
+    }
 
     private IsConnect mIsConnect;
 
@@ -41,10 +60,6 @@ public abstract class Node {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     private class CheckConnectThread extends Thread {

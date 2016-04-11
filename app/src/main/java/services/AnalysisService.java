@@ -89,20 +89,20 @@ public class AnalysisService extends Service {
      */
     public void analysisiData(byte[] datas) {
         HashMap<String, byte[]> thisHash = new HashMap<>();
-        int length = datas[1];
-        int offset = datas[2];
-        byte dataType = datas[3];
-        byte netType = datas[4];
+        int length = datas[DataTools.LENGTH];
+        int offset = datas[DataTools.OFFSET];
+        byte dataType = datas[DataTools.DATATYPE];
+        byte netType = datas[DataTools.NETTYPE];
         byte[] data = new byte[length];
         System.arraycopy(datas, offset, data, 0, data.length);
         byte[] device = new byte[3];
-        System.arraycopy(datas, 5, device, 0, device.length);
+        System.arraycopy(datas, DataTools.DEVICEADDR_H, device, 0, device.length);
 
         //这里重新定义字符串
-        thisHash.put("dataType", new byte[]{dataType});
-        thisHash.put("netType", new byte[]{netType});
-        thisHash.put("device", device);
-        thisHash.put("data", data);
+        thisHash.put(DataTools._DATATYPE, new byte[]{dataType});
+        thisHash.put(DataTools._NETTYPE, new byte[]{netType});
+        thisHash.put(DataTools._DEVICE, device);
+        thisHash.put(DataTools._DATA, data);
 
         if(onDataReceived != null){
             onDataReceived.haveData(thisHash);

@@ -13,29 +13,34 @@ public class NodeInfo {
     public static final byte SMARTAG = 0x01;
     public static final byte SMARTHS = 0x02;
 
+    public static byte netType = 0;
     public static final byte NET485 = 0x52;
     public static final byte NETZIGBEE = 0x5A;
 
+    public static final byte OPEN = 0x31;
+    public static final byte CLOSE = 0x30;
+    public static final byte STOP = 0x53;
+
     public static HashMap<byte[], String> hashList = new HashMap<>();
 
-    static{
-        hashList.put(new byte[]{0x41, 0x00, 0x01},"智能电表");
-        hashList.put(new byte[]{0x54, 0x00, 0x02},"空气温湿度");
-        hashList.put(new byte[]{0x4C, 0x00, 0x03},"光照");
-        hashList.put(new byte[]{0x43, 0x00, 0x04},"二氧化碳");
-        hashList.put(new byte[]{0x57, 0x00, 0x05},"风速");
-        hashList.put(new byte[]{0x53, 0x00, 0x06},"土壤温湿度");
-        hashList.put(new byte[]{0x50, 0x00, 0x07},"外部环境PM2.5");
-        hashList.put(new byte[]{0x50, 0x00, 0x08},"内部环境PM2.5");
-        hashList.put(new byte[]{0x6F, 0x00, 0x09},"全向红外");
-        hashList.put(new byte[]{0x52, 0x00, 0x0A},"红外光栅");
-        hashList.put(new byte[]{0x47, 0x00, 0x0B},"燃气传感器");
-        hashList.put(new byte[]{0x46, 0x00, 0x0C},"烟雾传感器");
-        hashList.put(new byte[]{0x49, 0x00, 0x0D},"人体红外传感器");
-        hashList.put(new byte[]{0x69, 0x00, 0x0E},"灌溉一");
-        hashList.put(new byte[]{0x69, 0x00, 0x0F},"灌溉二");
-        hashList.put(new byte[]{0x61, 0x00, 0x10},"报警器");
-        hashList.put(new byte[]{0x66, 0x00, 0x11},"风扇");
+    static {
+        hashList.put(new byte[]{0x00, 0x01, 0x41}, "智能电表");
+        hashList.put(new byte[]{0x00, 0x02, 0x54}, "空气温湿度");
+        hashList.put(new byte[]{0x00, 0x03, 0x4C}, "光照");
+        hashList.put(new byte[]{0x00, 0x04, 0x43}, "二氧化碳");
+        hashList.put(new byte[]{0x00, 0x05, 0x57}, "风速");
+        hashList.put(new byte[]{0x00, 0x06, 0x53}, "土壤温湿度");
+        hashList.put(new byte[]{0x00, 0x07, 0x50}, "外部环境PM2.5");
+        hashList.put(new byte[]{0x00, 0x08, 0x50}, "内部环境PM2.5");
+        hashList.put(new byte[]{0x00, 0x09, 0x6F}, "全向红外");
+        hashList.put(new byte[]{0x00, 0x0A, 0x52}, "红外光栅");
+        hashList.put(new byte[]{0x00, 0x0B, 0x47}, "燃气传感器");
+        hashList.put(new byte[]{0x00, 0x0C, 0x46}, "烟雾传感器");
+        hashList.put(new byte[]{0x00, 0x0D, 0x49}, "人体红外传感器");
+        hashList.put(new byte[]{0x00, 0x0E, 0x69}, "灌溉一");
+        hashList.put(new byte[]{0x00, 0x0F, 0x69}, "灌溉二");
+        hashList.put(new byte[]{0x00, 0x10, 0x61}, "报警器");
+        hashList.put(new byte[]{0x00, 0x11, 0x66}, "风扇");
     }
 
 }

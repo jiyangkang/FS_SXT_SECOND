@@ -18,8 +18,8 @@ import java.net.UnknownHostException;
 public class UdpTools {
 
     /**
-     * get byte array from Multicast Group
-     * @return the byte array received from Multicast Group
+     * get byte array from MultiBroadcast Group
+     * @return the array byte received from MultiBroadcast Group
      */
     public static byte[] getFromUDP(){
         byte[] datas = new byte[DataTools.UDPDATASIZE];
@@ -33,7 +33,6 @@ public class UdpTools {
             DataTools.isUDP = true;
             mMulticastSocket.close();
             return datas;
-
         } catch (IOException e) {
             e.printStackTrace();
             return null;

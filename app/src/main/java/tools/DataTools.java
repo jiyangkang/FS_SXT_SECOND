@@ -13,15 +13,38 @@ public class DataTools {
     public static final String ISUDP = "UDPMODE";
     public static final int ERROR = -9999;
 
-    public static String netType = null;
-    public static final String NET485 = "485";
-    public static final String NETZIGBEE = "ZIGBEE";
 
     public static String projetType = null;
     public static final String PROJECTAG = "smartAG";
     public static final String PROJECTHS = "smartHS";
 
+    public static final String _DATATYPE = "dataType";
+    public static final String _NETTYPE = "netType";
+    public static final String _DEVICE = "device";
+    public static final String _DATA = "data";
+
+    public static final byte LENGTH = 0x01;
+    public static final byte OFFSET = 0x02;
+    public static final byte DATATYPE = 0x03;
+    public static final byte NETTYPE = 0x04;
+    public static final byte DEVICEADDR_H = 0x05;
+    public static final byte DEVICEADDR_L = 0x06;
+    public static final byte DEVICETYPE = 0x07;
+    public static final byte DATA = 0x08;
+    public static final byte MATA = 0x09;
+
+
+    private final byte[] protocal = {HEAD_RECEIVE,LENGTH,OFFSET,DATATYPE,
+            NETTYPE, DEVICEADDR_H,DEVICEADDR_L,DEVICETYPE, DATA, MATA};
+
+
     public static final byte HEAD_RECEIVE = 0x21;
+    public static final byte NORMALDATA = 0x00;
+    public static final byte CONTROLDATA = 0x01;
+    public static final byte SETTHRESHOLD = 0x02;
+    public static final byte GETTHRESHOLD = 0x03;
+    public static final byte CHANGENET = 0x04;
+    public static final byte PROJECTTYPE = 0x05;
 
     public static final byte[] ENDTHREAD = {0x00, 0x00};
 

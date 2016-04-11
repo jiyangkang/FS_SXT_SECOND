@@ -23,7 +23,8 @@ public class Ammeter extends Node {
     private Ammeter(){
         mFillDatas = new FillAmmeterData();
         mSendCMD = null;
-        setName("智能电表");
+        byte[] type = new byte[]{0x00, 0x01, 0x41};
+        setAddr(type);
     }
 
     public static Ammeter getAmmeter(){
@@ -36,9 +37,14 @@ public class Ammeter extends Node {
         return ammeter;
     }
 
+    public String getValue() {
+        return value;
+    }
+
     public void setValue(byte[] data){
         HashMap<String, String> thHash = mFillDatas.fillData(data);
         value = thHash.get("电量");
+        setReduceTime(NodeInfo.REDUCETIME);
         mOnValueReceived.onValueReceived(value);
     }
 
