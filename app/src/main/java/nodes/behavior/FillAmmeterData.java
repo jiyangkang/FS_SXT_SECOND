@@ -13,7 +13,7 @@ public class FillAmmeterData implements FillDatas{
     @Override
     public HashMap<String, String> fillData(byte[] datas) {
         HashMap<String, String> mHashMap = new HashMap<>();
-        //假定只有电量
+        //只有电量
         for (int i = 0; i < datas.length; i++){
             if (datas[i] != 0x00){
                 datas[i] = (byte) (datas[i] - 0x33);

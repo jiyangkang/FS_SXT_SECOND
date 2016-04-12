@@ -1,13 +1,20 @@
 package nodes;
 
+import nodes.behavior.FillStatusData;
+import nodes.behavior.SendControlCMD;
+
 /**
+ *
  * Created by jiyangkang on 2016/4/9 0009.
  */
 public class Fan extends Node {
     public volatile static Fan fan;
 
     private Fan(){
-
+        byte[] addr = new byte[]{0x00, 0x11, 0x66};
+        mFillDatas = new FillStatusData();
+        mSendCMD = new SendControlCMD(addr);
+        setAddr(addr);
     }
 
     public static Fan getFan(){

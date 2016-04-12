@@ -10,11 +10,16 @@ import tools.MathTools;
  */
 public class SendControlCMD implements SendCMD{
     byte[] cmd = new byte[10];
+    private byte[] addr;
+
+
+    public SendControlCMD (byte[] addr){
+        this.addr = addr;
+    }
 
     @Override
-    public void sendCMD(int which, byte[] addr) {
-        setCmd(which, addr);
-
+    public void sendCMD(int which) {
+        setCmd(which);
         try {
             DataTools.sends.put(cmd);
         } catch (InterruptedException e) {
@@ -22,7 +27,7 @@ public class SendControlCMD implements SendCMD{
         }
     }
 
-    public void setCmd(int which, byte[] addr){
+    public void setCmd(int which){
         byte[] a = new byte[9];
         a[0] = DataTools.HEAD_RECEIVE;
         a[DataTools.LENGTH] = 0x01;

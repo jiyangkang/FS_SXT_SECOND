@@ -12,14 +12,6 @@ public class Ammeter extends Node {
 
     private volatile static Ammeter ammeter;
 
-    private String value;
-
-    private OnValueReceived mOnValueReceived;
-
-    public void setmOnValueReceived(OnValueReceived onValueReceived){
-        this.mOnValueReceived = onValueReceived;
-    }
-
     private Ammeter(){
         mFillDatas = new FillAmmeterData();
         mSendCMD = null;
@@ -37,18 +29,5 @@ public class Ammeter extends Node {
         return ammeter;
     }
 
-    public String getValue() {
-        return value;
-    }
 
-    public void setValue(byte[] data){
-        HashMap<String, String> thHash = mFillDatas.fillData(data);
-        value = thHash.get("电量");
-        setReduceTime(NodeInfo.REDUCETIME);
-        mOnValueReceived.onValueReceived(value);
-    }
-
-    public interface OnValueReceived{
-        void onValueReceived(String value);
-    }
 }
