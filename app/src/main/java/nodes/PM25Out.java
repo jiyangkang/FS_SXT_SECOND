@@ -7,7 +7,8 @@ public class PM25Out extends Node {
     public volatile static PM25Out pm25Out;
 
     private PM25Out(){
-
+        byte[] addr = new byte[]{0x00, 0x07, 0x50};
+        setAddr(addr);
     }
 
     public static PM25Out getPM25Out(){

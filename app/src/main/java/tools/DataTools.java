@@ -14,9 +14,7 @@ public class DataTools {
     public static final int ERROR = -9999;
 
 
-    public static String projetType = null;
-    public static final String PROJECTAG = "smartAG";
-    public static final String PROJECTHS = "smartHS";
+
 
     public static final String _DATATYPE = "dataType";
     public static final String _NETTYPE = "netType";

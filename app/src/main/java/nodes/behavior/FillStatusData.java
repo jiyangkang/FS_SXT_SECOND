@@ -19,9 +19,6 @@ public class FillStatusData implements FillDatas {
             case NodeInfo.OPEN:
                 thisHash.put("状态", "开");
                 break;
-            case NodeInfo.STOP:
-                thisHash.put("状态", "停");
-                break;
             default:
                 break;
         }

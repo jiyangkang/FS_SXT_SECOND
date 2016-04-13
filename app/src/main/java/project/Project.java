@@ -3,6 +3,7 @@ package project;
 import java.util.HashMap;
 
 import nodes.Node;
+import nodes.NodeInfo;
 
 /**
  *
@@ -10,6 +11,7 @@ import nodes.Node;
  */
 public abstract class Project {
     private HashMap<String, Node> nodeSet = new HashMap<>();
+    private String name ;
 
     JoinProject joinProject;
 
@@ -17,7 +19,16 @@ public abstract class Project {
         this.nodeSet = nodeSet;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public HashMap<String, Node> getNodeSet(){
         return this.nodeSet;
     }
+
 }

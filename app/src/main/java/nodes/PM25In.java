@@ -8,6 +8,8 @@ public class PM25In extends Node {
 
     private PM25In(){
 
+        byte[] addr = new byte[]{0x00, 0x08, 0x50};
+        setAddr(addr);
     }
 
     public static PM25In getPM25In(){

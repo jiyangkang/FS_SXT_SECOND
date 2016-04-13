@@ -34,10 +34,6 @@
         <service android:name="services.SoapService" />
         <service android:name="services.UDPService" />
         <service android:name="services.AnalysisService" />
-        <service
-            android:name="services.CheckProject"
-            android:enabled="true"
-            android:exported="true"></service>
     </application>
 
 </manifest>

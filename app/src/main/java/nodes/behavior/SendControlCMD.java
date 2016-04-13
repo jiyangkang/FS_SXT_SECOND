@@ -40,13 +40,10 @@ public class SendControlCMD implements SendCMD{
 
         switch (which){
             case NodeInfo.OPEN:
-                a[DataTools.DATA] = NodeInfo.OPEN;
+                a[DataTools.DATA] = (byte)(NodeInfo.OPEN & 0x00ff);
                 break;
             case NodeInfo.CLOSE:
-                a[DataTools.DATA] = NodeInfo.CLOSE;
-                break;
-            case NodeInfo.STOP:
-                a[DataTools.DATA] = NodeInfo.STOP;
+                a[DataTools.DATA] = (byte)(NodeInfo.CLOSE & 0x00ff);
                 break;
             default:
                 a[DataTools.DATA] = 0x00;

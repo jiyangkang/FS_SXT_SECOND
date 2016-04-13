@@ -13,7 +13,6 @@ import nodes.PM25In;
 import nodes.PM25Out;
 import nodes.Soil;
 import nodes.Temperature;
-import nodes.WindSpeed;
 
 /**
  *
@@ -26,7 +25,6 @@ public class SmartAGJoinProject implements JoinProject {
 
         Temperature temperature = Temperature.getTemperature();
         Light light = Light.getLight();
-        WindSpeed windSpeed = WindSpeed.getWindSpeed();
         Soil soil = Soil.getSoil();
         PM25In pm25In = PM25In.getPM25In();
         PM25Out pm25Out = PM25Out.getPM25Out();
@@ -38,7 +36,6 @@ public class SmartAGJoinProject implements JoinProject {
 
         thisHash.put(temperature.getName(), temperature);
         thisHash.put(light.getName(), light);
-        thisHash.put(windSpeed.getName(), windSpeed);
         thisHash.put(soil.getName(), soil);
         thisHash.put(pm25In.getName(), pm25In);
         thisHash.put(pm25Out.getName(), pm25Out);

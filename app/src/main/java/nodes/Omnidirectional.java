@@ -1,5 +1,7 @@
 package nodes;
 
+import nodes.behavior.FillStatusData;
+
 /**
  * Created by jiyangkang on 2016/4/9 0009.
  */
@@ -7,6 +9,9 @@ public class Omnidirectional extends Node {
     public volatile static Omnidirectional omnidirectional;
 
     private Omnidirectional(){
+        mFillDatas = new FillStatusData();
+        byte[] addr = new byte[]{0x00, 0x09, 0x6F};
+        setAddr(addr);
 
     }
 

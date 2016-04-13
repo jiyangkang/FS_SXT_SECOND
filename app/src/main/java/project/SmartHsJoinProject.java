@@ -10,6 +10,7 @@ import nodes.Gas;
 import nodes.Infrared;
 import nodes.Light;
 import nodes.Node;
+import nodes.NodeInfo;
 import nodes.Omnidirectional;
 import nodes.Raster;
 import nodes.Temperature;
@@ -21,6 +22,8 @@ import nodes.Temperature;
 public class SmartHsJoinProject implements JoinProject{
     @Override
     public HashMap<String, Node> joinProject() {
+
+
         HashMap<String, Node> thisHash = new HashMap<>();
 
         Ammeter ammeter = Ammeter.getAmmeter();
