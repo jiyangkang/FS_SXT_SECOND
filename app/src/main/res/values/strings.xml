@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FS_SXT</string>
+    <string name="scan">扫描UDP......</string>
 </resources>

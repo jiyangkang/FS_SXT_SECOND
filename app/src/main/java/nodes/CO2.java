@@ -8,10 +8,10 @@ import nodes.behavior.FillCo2Data;
  */
 public class CO2 extends Node{
 
-    public volatile static CO2 co2;
+    private volatile static CO2 co2;
 
     private CO2(){
-        byte[] addr = new byte[]{0x00, 0x04, 0x43};
+        byte[] addr = new byte[]{0x00, 0x07, 0x43};
         mSendCMD = null;
         mFillDatas = new FillCo2Data();
         setAddr(addr);

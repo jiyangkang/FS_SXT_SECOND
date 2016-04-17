@@ -108,8 +108,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         public void run() {
             super.run();
             while(true){
-                sendUDP();
+                if (2 <i || i >5){
+                    send1UDP();
+                }else {
+                    sendUDP();
+                }
                 i++;
+                if (i == 6)
+                    i=0;
                 Log.d("UDP", i+"");
                 try {
                     sleep(3000);
@@ -121,7 +127,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void sendUDP(){
-        byte[] data= new byte[]{0x21, 0x01, 0x08, 0x00, 0x52, 0x00, 0x01, 0x43, 0x55, 0x10};
+        byte[] data= new byte[]{0x21, 0x01, 0x08, 0x05, 0x52, 0x00, 0x00, 0x00, 0x01, 0x39};
         try {
             MulticastSocket multicastSocket= new MulticastSocket(20000);
             InetAddress group = InetAddress.getByName("224.10.10.10");
@@ -135,6 +141,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+    public void send1UDP(){
+        byte[] data= new byte[]{0x21, 0x01, 0x08, 0x05, 0x52, 0x00, 0x00, 0x00, 0x02, 0x30};
+        try {
+            MulticastSocket multicastSocket= new MulticastSocket(20000);
+            InetAddress group = InetAddress.getByName("224.10.10.10");
+            multicastSocket.joinGroup(group);
+            DatagramPacket datagramPacket = new DatagramPacket(data, data.length,group,20000);
+            multicastSocket.send(datagramPacket);
+            multicastSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public String changeIntoHexString(int data) {
         Log.e("EDIT", data + "");
         StringBuilder stringBuilder = new StringBuilder();

@@ -30,6 +30,9 @@
         <activity
             android:name="activities.SmartAG"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="activities.SmartHouse"
+            android:screenOrientation="landscape" />
 
         <service android:name="services.SoapService" />
         <service android:name="services.UDPService" />

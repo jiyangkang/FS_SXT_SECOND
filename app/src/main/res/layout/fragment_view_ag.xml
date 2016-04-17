@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center">
+
+        <views.DrawViewNode
+
+            android:id="@+id/node_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+        <views.DrawViewNode
+
+            android:id="@+id/node_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+        <views.DrawViewNode
+
+            android:id="@+id/node_soil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center">
+        <views.DrawViewNode
+
+            android:id="@+id/node_co2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+        <views.DrawViewNode
+
+            android:id="@+id/node_pm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+
+        <views.DrawViewNode
+
+            android:id="@+id/node_infrared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:project="smartAG"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+
+    </LinearLayout>
+</LinearLayout>

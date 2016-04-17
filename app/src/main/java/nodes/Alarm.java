@@ -11,7 +11,7 @@ public class Alarm extends Node {
     public volatile static Alarm alarm;
 
     private Alarm(){
-        byte[] addr = new byte[]{0x00, 0x10, 0x61};
+        byte[] addr = new byte[]{0x00, 0x11, 0x61};
         mFillDatas = new FillStatusData();
         mSendCMD = new SendControlCMD(addr);
         setAddr(addr);

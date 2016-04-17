@@ -10,7 +10,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class DataTools {
 
     public static boolean isUDP = false;
-    public static final String ISUDP = "UDPMODE";
     public static final int ERROR = -9999;
 
 
@@ -58,13 +57,14 @@ public class DataTools {
     public final static int serverPortMultiGrop = 20001;//server port
     public static String serverIP = "192.168.0.200";
 
-    public final static int delayBase = 100;
+    public final static int delayBase = 500;
     public final static int delaytimes = 10;
 
     public final static String webAddr = "http://iot.farsightdev.com/SAWebService.asmx";
     public static final String NAMESPACE = "http://tempuri.org/";//命名空间
     public static final String DEVICE = "000106";//设备号
     public static String userId = "admin";
+
 
 
 }

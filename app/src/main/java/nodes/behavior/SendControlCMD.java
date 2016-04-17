@@ -38,17 +38,7 @@ public class SendControlCMD implements SendCMD{
         a[DataTools.DEVICEADDR_L] = addr[1];
         a[DataTools.DEVICETYPE] = addr[2];
 
-        switch (which){
-            case NodeInfo.OPEN:
-                a[DataTools.DATA] = (byte)(NodeInfo.OPEN & 0x00ff);
-                break;
-            case NodeInfo.CLOSE:
-                a[DataTools.DATA] = (byte)(NodeInfo.CLOSE & 0x00ff);
-                break;
-            default:
-                a[DataTools.DATA] = 0x00;
-                break;
-        }
+        a[DataTools.DATA] = (byte)(which & 0xff);
 
         byte mata = MathTools.makeMate(a);
         System.arraycopy(a, 0, cmd, 0, a.length);

@@ -7,10 +7,10 @@ import nodes.behavior.FillStatusData;
  * Created by jiyangkang on 2016/4/9 0009.
  */
 public class Fog extends Node {
-    public volatile static Fog fog;
+    private volatile static Fog fog;
 
     private Fog(){
-        byte[] addr = new byte[]{0x00, 0x0C, 0x46};
+        byte[] addr = new byte[]{0x00, 0x0D, 0x46};
         mFillDatas = new FillStatusData();
         mSendCMD = null;
         setAddr(addr);

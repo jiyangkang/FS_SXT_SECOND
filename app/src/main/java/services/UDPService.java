@@ -76,6 +76,7 @@ public class UDPService extends Service{
                         Log.d("get", StringTools.changeIntoHexString(datas, true));
                         Log.d("addr", DataTools.serverIP);
                         DataTools.gets.put(datas);
+                        Log.d("Get", "1");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
