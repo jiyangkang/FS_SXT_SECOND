@@ -14,7 +14,7 @@ public class Omnidirectional extends Node {
         byte[] addr = new byte[]{0x00, 0x0F, 0x6F};
         setAddr(addr);
         mSendCMD = new SendControlCMD(addr);
-
+        setName("全向红外");
     }
 
     public static Omnidirectional getOmnidirectional(){

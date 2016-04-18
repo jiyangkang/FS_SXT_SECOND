@@ -7,4 +7,8 @@
     <declare-styleable name="DrawViewNode">
         <attr name="project" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="DrawNormalContrlNode">
+        <attr name="controlpn" format="string"/>
+    </declare-styleable>
 </resources>

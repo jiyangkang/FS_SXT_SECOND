@@ -12,6 +12,7 @@ public class Temperature extends Node{
     private Temperature(){
         byte[] addr = new byte[]{0x00, 0x02, 0x54};
         setAddr(addr);
+        setName("空气温湿度");
         mFillDatas = new FillWeatherData();
         mSendCMD = null;
     }

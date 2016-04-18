@@ -15,6 +15,7 @@ public class IrrigationFirst extends Node{
         mFillDatas = new FillStatusData();
         mSendCMD = new SendControlCMD(addr);
         setAddr(addr);
+        setName("灌溉一");
     }
 
     public static IrrigationFirst getIrrigationFirst(){

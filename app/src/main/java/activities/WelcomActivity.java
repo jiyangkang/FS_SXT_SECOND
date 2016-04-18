@@ -205,13 +205,11 @@ public class WelcomActivity extends Activity implements View.OnClickListener {
             case R.id.ag:
                 if (btnAG.isClickAble()) {
                     startActivity(new Intent(WelcomActivity.this, SmartAG.class));
-                    WelcomActivity.this.finish();
                 }
                 break;
             case R.id.hs:
                 if (btnHS.isClickAble()) {
                     startActivity(new Intent(WelcomActivity.this, SmartHouse.class));
-                    WelcomActivity.this.finish();
                 }
                 break;
             default:
@@ -266,7 +264,6 @@ public class WelcomActivity extends Activity implements View.OnClickListener {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(WelcomActivity.this, LoginActivities.class));
-                WelcomActivity.this.finish();
                 dialog.dismiss();
             }
         });
@@ -287,7 +284,6 @@ public class WelcomActivity extends Activity implements View.OnClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 if (intent != null) {
                     startActivity(intent);
-                    WelcomActivity.this.finish();
                 }
 
                 dialog.dismiss();

@@ -15,6 +15,7 @@ public class Alarm extends Node {
         mFillDatas = new FillStatusData();
         mSendCMD = new SendControlCMD(addr);
         setAddr(addr);
+        setName("报警器");
     }
 
     public static Alarm getAlarm(){

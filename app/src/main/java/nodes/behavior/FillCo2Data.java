@@ -13,7 +13,7 @@ public class FillCo2Data implements FillDatas {
     public HashMap<String, String> fillData(byte[] datas) {
         int value = MathTools.changeIntoInt(datas);
         HashMap<String, String> thisHash= new HashMap<>();
-        thisHash.put("二氧化碳浓度", ""+value);
+        thisHash.put("二氧化碳浓度", value+"ppm");
         return thisHash;
     }
 }

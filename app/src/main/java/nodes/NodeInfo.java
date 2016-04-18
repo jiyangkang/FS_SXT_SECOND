@@ -58,37 +58,35 @@ public class NodeInfo {
     public static final int CURTAIN_STOP = 145;
     public static final int CURTAIN_OFF = 146;
 
-    public static HashMap<byte[], String> hashList = new HashMap<>();
+    public static HashMap<String, String> hashList = new HashMap<>();
     public static HashMap<String, int[]> projectMaplist = new HashMap<>();
-    public static HashMap<String, JoinProject> projectNodeSet = new HashMap<>();
     public static HashMap<String, int[]> viewNodeDrawable = new HashMap<>();
+    public static HashMap<String, Integer> normalCtrlDrable = new HashMap<>();
 
     static {
-        hashList.put(new byte[]{0x00, 0x01, 0x41}, "智能电表");//000141
-        hashList.put(new byte[]{0x00, 0x02, 0x54}, "空气温湿度");//000254
-        hashList.put(new byte[]{0x00, 0x03, 0x44}, "门禁");//000344
-        hashList.put(new byte[]{0x00, 0x04, 0x4C}, "光照");//00044c
-        hashList.put(new byte[]{0x00, 0x07, 0x43}, "二氧化碳");//000743
+        hashList.put("000141", "智能电表");//000141
+        hashList.put("000254", "空气温湿度");//000254
+        hashList.put("000344", "门禁");//000344
+        hashList.put("00044C", "光照");//00044c
+        hashList.put("000743", "二氧化碳");//000743
 //        hashList.put(new byte[]{0x00, 0x05, 0x57}, "风速");
-        hashList.put(new byte[]{0x00, 0x06, 0x53}, "土壤温湿度");//000653
-        hashList.put(new byte[]{0x00, 0x08, 0x50}, "环境PM2.5");
-        hashList.put(new byte[]{0x00, 0x0A, 0x6F}, "全向红外");
-        hashList.put(new byte[]{0x00, 0x0B, 0x52}, "红外光栅");
-        hashList.put(new byte[]{0x00, 0x0C, 0x47}, "燃气传感器");
-        hashList.put(new byte[]{0x00, 0x0D, 0x46}, "烟雾传感器");
-        hashList.put(new byte[]{0x00, 0x0E, 0x49}, "人体红外传感器");
-        hashList.put(new byte[]{0x00, 0x0F, 0x69}, "灌溉一");
-        hashList.put(new byte[]{0x00, 0x10, 0x69}, "灌溉二");
-        hashList.put(new byte[]{0x00, 0x11, 0x61}, "报警器");
-        hashList.put(new byte[]{0x00, 0x12, 0x66}, "风扇");
+        hashList.put("000653", "土壤温湿度");//000653
+        hashList.put("000850", "环境PM2.5");
+        hashList.put("000A6F", "全向红外");
+        hashList.put("000B52", "红外光栅");
+        hashList.put("000C47", "燃气传感器");
+        hashList.put("000D46", "烟雾传感器");
+        hashList.put("000E49", "人体红外传感器");
+        hashList.put("000F69", "灌溉一");
+        hashList.put("001069", "灌溉二");
+        hashList.put("001161", "报警器");
+        hashList.put("001266", "风扇");
 
         int[] listBitmapHSProject = {R.drawable.smart_hs_enable, R.drawable.smart_hs_disable};
         int[] listBitmapAGProject = {R.drawable.smart_ag_enable, R.drawable.smart_ag_disable};
         projectMaplist.put("smartHS", listBitmapHSProject);
         projectMaplist.put("smartAG", listBitmapAGProject);
 
-        projectNodeSet.put(PROJECTAG, new SmartAGJoinProject());
-        projectNodeSet.put(PROJECTHS, new SmartHsJoinProject());
 
         int[] listBitmapBlank = new int[]{R.drawable.blank_ag, R.drawable.blank_hs};
         viewNodeDrawable.put("blank", listBitmapBlank);//空白
@@ -103,6 +101,11 @@ public class NodeInfo {
         viewNodeDrawable.put("烟雾传感器", new int[]{0, R.drawable.fog_hs});//烟雾
         viewNodeDrawable.put("燃气传感器", new int[]{0, R.drawable.gas_hs});//燃气
         viewNodeDrawable.put("人体红外传感器", new int[]{R.drawable.infrared_ag, R.drawable.infred_hs});//人体红外
+
+        normalCtrlDrable.put("报警器", R.drawable.alarm_ag);
+        normalCtrlDrable.put("风扇", R.drawable.fan_ag);
+        normalCtrlDrable.put("灌溉一", R.drawable.irr_ag_1);
+        normalCtrlDrable.put("灌溉二", R.drawable.irr_ag_2);
 
     }
 

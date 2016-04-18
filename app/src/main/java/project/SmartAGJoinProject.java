@@ -20,12 +20,8 @@ import nodes.Temperature;
  */
 public class SmartAGJoinProject implements JoinProject {
 
-
     @Override
-    public HashMap<String, Node> joinProject() {
-        HashMap<String, Node> thisHash = new HashMap<>();
-
-
+    public void joinProject(HashMap<String, Node> thisHash) {
         thisHash.put(Temperature.getTemperature().getName(), Temperature.getTemperature());
         thisHash.put(Light.getLight().getName(), Light.getLight());
         thisHash.put(Soil.getSoil().getName(), Soil.getSoil());
@@ -38,8 +34,5 @@ public class SmartAGJoinProject implements JoinProject {
                 IrrigationSecond.getIrrigationSecond());
         thisHash.put(Alarm.getAlarm().getName(), Alarm.getAlarm());
         thisHash.put(Fan.getFan().getName(), Fan.getFan());
-
-
-        return thisHash;
     }
 }

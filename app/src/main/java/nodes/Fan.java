@@ -15,6 +15,7 @@ public class Fan extends Node {
         mFillDatas = new FillStatusData();
         mSendCMD = new SendControlCMD(addr);
         setAddr(addr);
+        setName("风扇");
     }
 
     public static Fan getFan(){

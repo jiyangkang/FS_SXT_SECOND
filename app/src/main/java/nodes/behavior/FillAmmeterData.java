@@ -14,14 +14,11 @@ public class FillAmmeterData implements FillDatas{
     public HashMap<String, String> fillData(byte[] datas) {
         HashMap<String, String> mHashMap = new HashMap<>();
         //只有电量
-        for (int i = 0; i < datas.length; i++){
-            if (datas[i] != 0x00){
-                datas[i] = (byte) (datas[i] - 0x33);
-            }
-        }
+
         StringBuilder stringBuilder = new
                 StringBuilder(StringTools.changeIntoHexString(datas, false));
         stringBuilder.insert(stringBuilder.toString().length() - 2, '.');
+        stringBuilder.append("kWh");
         mHashMap.put("电量", stringBuilder.toString());
         return mHashMap;
     }

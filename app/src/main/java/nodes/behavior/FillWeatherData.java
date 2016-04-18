@@ -17,11 +17,29 @@ public class FillWeatherData implements FillDatas {
 
         System.arraycopy(datas, 0, temp, 0, 2);
         System.arraycopy(datas, 2, water, 0, 2);
-        float tempValue = (float)(MathTools.changeIntoInt(temp)/10);
-        value.put("温度",tempValue+"");
+        int t = MathTools.changeIntoInt(temp);
+        StringBuilder tStringBuilder = new StringBuilder();
+        if (t >= 10 || t <= -10){
+            tStringBuilder.append(t);
+            tStringBuilder.insert(tStringBuilder.toString().length() - 1 , '.');
+        } else {
+            tStringBuilder.append(t);
+            tStringBuilder.insert(tStringBuilder.toString().length() - 1 , "0.");
+        }
+        tStringBuilder.append("℃");
+        value.put("温度",tStringBuilder.toString());
 
-        float waterValue = (float)(MathTools.changeIntoInt(water)/10);
-        value.put("湿度",waterValue+"");
+        int w = MathTools.changeIntoInt(water);
+        StringBuilder wStringBuilder = new StringBuilder();
+        if (w > 10 || w < -10){
+            wStringBuilder.append(w);
+            wStringBuilder.insert(wStringBuilder.toString().length() - 1 , '.');
+        } else {
+            wStringBuilder.append(w);
+            wStringBuilder.insert(wStringBuilder.toString().length() - 1 , "0.");
+        }
+        wStringBuilder.append("%");
+        value.put("湿度",wStringBuilder.toString());
 
         return value;
     }

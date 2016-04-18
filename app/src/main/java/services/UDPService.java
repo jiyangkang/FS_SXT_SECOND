@@ -37,6 +37,7 @@ public class UDPService extends Service{
         threadOn = false;
         try {
             //when stopping thread send ENDTHREAD byte array
+            DataTools.sends.clear();
             DataTools.sends.put(DataTools.ENDTHREAD);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -74,8 +75,9 @@ public class UDPService extends Service{
                 if (datas != null){
                     try {
                         Log.d("get", StringTools.changeIntoHexString(datas, true));
-                        Log.d("addr", DataTools.serverIP);
-                        DataTools.gets.put(datas);
+                        if (threadOn){
+                            DataTools.gets.put(datas);
+                        }
                         Log.d("Get", "1");
                     } catch (InterruptedException e) {
                         e.printStackTrace();

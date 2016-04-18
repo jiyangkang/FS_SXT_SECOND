@@ -1,6 +1,8 @@
 package nodes;
 
 
+import android.util.Log;
+
 import java.util.HashMap;
 
 import nodes.behavior.FillDatas;
@@ -25,10 +27,14 @@ public abstract class Node {
     SendCMD mSendCMD;//命令发送行为
     FillDatas mFillDatas;//数据填充行为
 
+    public SendCMD getmSendCMD() {
+        return mSendCMD;
+    }
+
     /**
      * on destroy Node
      */
-    public void release (){
+    public void release() {
         mCheckConnectThread.interrupt();
         mCheckConnectThread = null;
         mIsConnect = null;
@@ -46,6 +52,7 @@ public abstract class Node {
 
     /**
      * interface let others knows the name of the Node
+     *
      * @return the name
      */
     public String getName() {
@@ -55,15 +62,17 @@ public abstract class Node {
 
     /**
      * refresh reduceTime
+     *
      * @param reduceTime time not received value
      */
     public void setReduceTime(int reduceTime) {
         this.reduceTime = reduceTime;
-        if (!isConnect){
+        if (!isConnect) {
             mCheckConnectThread = new CheckConnectThread();
             isConnect = true;
             mCheckConnectThread.start();
-            mIsConnect.isConnect(true);
+            if (mIsConnect != null)
+                mIsConnect.isConnect(true);
         }
     }
 
@@ -76,40 +85,48 @@ public abstract class Node {
 
     /**
      * register the callback OnValueReceived
+     *
      * @param mOnValueReceived
      */
-    public void setmOnValueReceived(OnValueReceived mOnValueReceived){
+    public void setmOnValueReceived(OnValueReceived mOnValueReceived) {
         this.mOnValueReceived = mOnValueReceived;
     }
 
     /**
      * set Node's value in HashMap style
+     *
      * @param datas the byte array received
      */
-    public void setValue(byte[] datas){
+    public void setValue(byte[] datas) {
         value = mFillDatas.fillData(datas);
         setReduceTime(NodeInfo.REDUCETIME);
-        mOnValueReceived.onValueReceived(value);
+        if (mOnValueReceived != null)
+            mOnValueReceived.onValueReceived(value);
     }
 
     /**
      * callback when received value
      */
-    public interface OnValueReceived{
+    public interface OnValueReceived {
         void onValueReceived(HashMap<String, String> value);
     }
 
     /**
      * set the type of Node and the name of Node
+     *
      * @param addr byte array with information of addr_h addr_l deviceType
      */
     public void setAddr(byte[] addr) {
         this.addr = addr;
-        name = NodeInfo.hashList.get(addr);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * return the byte array with information of addr_h addr_l deviceType
+     *
      * @return information of Node
      */
     public byte[] getAddr() {
@@ -118,6 +135,7 @@ public abstract class Node {
 
     /**
      * return netType of Node
+     *
      * @return netType
      */
     public byte getNetType() {
@@ -126,10 +144,16 @@ public abstract class Node {
 
     /**
      * set netType
+     *
      * @param netType netType
      */
     public void setNetType(byte netType) {
         NodeInfo.netType = netType;
+    }
+
+
+    public void setmIsConnect(IsConnect mIsConnect) {
+        this.mIsConnect = mIsConnect;
     }
 
     /**
@@ -148,10 +172,16 @@ public abstract class Node {
                 }
             }
             isConnect = false;
-            mIsConnect.isConnect(false);
+            if (mIsConnect != null){
+                mIsConnect.isConnect(false);
+            }
             this.interrupt();
         }
     }
+
+//    public void sendCMD(int what){
+//        mSendCMD.sendCMD(what);
+//    }
 
 
 }

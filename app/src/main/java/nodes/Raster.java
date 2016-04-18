@@ -1,5 +1,6 @@
 package nodes;
 
+import nodes.behavior.FillRasterData;
 import nodes.behavior.FillStatusData;
 
 /**
@@ -11,7 +12,8 @@ public class Raster extends Node{
     private Raster(){
         byte[] addr = new byte[]{0x00, 0x0B, 0x52};
         setAddr(addr);
-        mFillDatas = new FillStatusData();
+        setName("红外光栅");
+        mFillDatas = new FillRasterData();
         mSendCMD = null;
     }
 

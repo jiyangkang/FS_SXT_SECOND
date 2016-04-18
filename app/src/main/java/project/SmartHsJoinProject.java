@@ -23,10 +23,7 @@ import nodes.Temperature;
 public class SmartHsJoinProject implements JoinProject{
 
     @Override
-    public HashMap<String, Node> joinProject() {
-
-        HashMap<String, Node> thisHash = new HashMap<>();
-
+    public void joinProject(HashMap<String, Node> thisHash) {
         thisHash.put(Ammeter.getAmmeter().getName(), Ammeter.getAmmeter());
         thisHash.put(Temperature.getTemperature().getName(), Temperature.getTemperature());
         thisHash.put(Keeper.getKeeper().getName(), Keeper.getKeeper());
@@ -38,7 +35,5 @@ public class SmartHsJoinProject implements JoinProject{
         thisHash.put(Infrared.getInfrared().getName(), Infrared.getInfrared());
         thisHash.put(Alarm.getAlarm().getName(), Alarm.getAlarm());
         thisHash.put(Fan.getFan().getName(), Fan.getFan());
-
-        return thisHash;
     }
 }

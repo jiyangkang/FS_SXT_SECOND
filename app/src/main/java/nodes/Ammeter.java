@@ -17,6 +17,7 @@ public class Ammeter extends Node {
         mSendCMD = null;
         byte[] type = new byte[]{0x00, 0x01, 0x41};
         setAddr(type);
+        setName("智能电表");
     }
 
     public static Ammeter getAmmeter(){

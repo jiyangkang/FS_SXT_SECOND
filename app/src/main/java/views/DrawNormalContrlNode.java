@@ -8,17 +8,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.Layout;
-import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.hqyj.dev.ji.fs_sxt.R;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import nodes.Node;
@@ -26,34 +24,29 @@ import nodes.NodeInfo;
 import project.Project;
 
 /**
- * Created by jiyangkang on 2016/4/17 0017.
+ * Created by jiyangkang on 2016/4/18 0018.
  */
-public class DrawViewNode extends View {
-    private Bitmap bitmap;
-    private String mName;
+public class DrawNormalContrlNode extends View {
+    private Context mContext;
     private Paint mPaint;
-    private String projectType;
-    private Rect orRect, dstRect;
-    private Bitmap bitmapBlank;
-    private String valueString;
+    private String mName;
+    private Bitmap bitmap;
+    private Bitmap button, buttonDisable, buttonOpenEnable, buttonCloseEnable;
 
-    private TextPaint textPaint;
+    private String value;
 
     private Node node;
 
     private int which = -1;
 
-    private Context mContext;
-
-    public DrawViewNode(Context context) {
-        this(context, null);
-    }
-
-    public DrawViewNode(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
+    private Rect orRect, dstRect;
+    private Rect obRect, dbRect;
     private OnReceived onReceived;
+    private boolean clickable = false;
+
+    public static interface OnReceived {
+        void received(StringBuilder stringBuilder);
+    }
 
     public void setOnReceived(OnReceived onReceived) {
         this.onReceived = onReceived;
@@ -61,7 +54,7 @@ public class DrawViewNode extends View {
 
     public void setmName(String mName) {
         this.mName = mName;
-        bitmap = BitmapFactory.decodeResource(mContext.getResources(), NodeInfo.viewNodeDrawable.get(mName)[which]);
+        bitmap = BitmapFactory.decodeResource(mContext.getResources(), NodeInfo.normalCtrlDrable.get(mName));
         node = Project.getProject().getNodeSet().get(mName);
 //        Log.d(mName, mName);
 
@@ -78,47 +71,52 @@ public class DrawViewNode extends View {
                         Map.Entry entry = (Map.Entry) o;
                         stringBuilder.append(entry.getKey())
                                 .append(":").append(entry.getValue()).append('\n');
+
+                        if (entry.getValue().equals("打开")) {
+                            button = buttonCloseEnable;
+                        } else {
+                            button = buttonOpenEnable;
+                        }
+                        clickable = true;
                     }
+
                     if (onReceived != null) {
                         onReceived.received(stringBuilder);
                     }
                 }
             });
-
             node.setmIsConnect(new Node.IsConnect() {
                 @Override
                 public void isConnect(boolean isConncet) {
-                    if (onReceived != null && !isConncet){
+                    if (onReceived != null && !isConncet) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append("连接断开");
+                        stringBuilder.append("断开连接");
+                        button = buttonDisable;
+                        clickable = false;
                         onReceived.received(stringBuilder);
                     }
                 }
             });
-
         }
     }
 
-    public void setValueString(String valueString) {
-        this.valueString = valueString;
+    public DrawNormalContrlNode(Context context) {
+        this(context, null);
     }
 
-    public static interface OnReceived {
-        void received(StringBuilder stringBuilder);
+    public DrawNormalContrlNode(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-
-    public Node getNode() {
-        return node;
-    }
-
-    public DrawViewNode(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DrawNormalContrlNode(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mContext = context;
+
         TypedArray typedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.DrawViewNode, 0, 0);
-        projectType = typedArray.getString(R.styleable.DrawViewNode_project);
+                attrs, R.styleable.DrawNormalContrlNode, 0, 0);
+        mName = typedArray.getString(R.styleable.DrawNormalContrlNode_controlpn);
         typedArray.recycle();
+        setmName(mName);
 
         int withMetrics = context.getResources().getDisplayMetrics().widthPixels;
         mPaint = new Paint();
@@ -127,53 +125,42 @@ public class DrawViewNode extends View {
         mPaint.setAntiAlias(true);
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
-        textPaint = new TextPaint();
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(18 * withMetrics / 1024);
-
-        if (projectType != null) {
-            switch (projectType) {
-                case NodeInfo.PROJECTAG:
-                    which = 0;
-                    break;
-                case NodeInfo.PROJECTHS:
-                    which = 1;
-                    break;
-                default:
-                    which = 0;
-                    break;
-            }
-        }
-
-
-        bitmapBlank = BitmapFactory.decodeResource(context.getResources(),
-                NodeInfo.viewNodeDrawable.get("blank")[which]);
-        bitmap = bitmapBlank;
+        bitmap = BitmapFactory.decodeResource(context.getResources(), NodeInfo.normalCtrlDrable.get(mName));
 
         int ox = bitmap.getWidth();
         int oy = bitmap.getHeight();
 
         int rx, ry;
 
-        rx = withMetrics * 180 / 1024;
+        rx = withMetrics * 256 / 1024;
         ry = rx * oy / ox;
 
         orRect = new Rect(0, 0, ox, oy);
         dstRect = new Rect(0, 0, rx, ry);
 
-        valueString = "未连接";
+        buttonCloseEnable = BitmapFactory.decodeResource(context.getResources(), R.drawable.button_close_able);
+        buttonOpenEnable = BitmapFactory.decodeResource(context.getResources(), R.drawable.button_open_able);
+        buttonDisable = BitmapFactory.decodeResource(context.getResources(), R.drawable.button_dis);
 
+        button = buttonDisable;
+        int obx = button.getWidth();
+        int oby = button.getHeight();
+
+        int rbx, rby;
+        rbx = withMetrics * 187 / 1024;
+        rby = rbx * oby / obx;
+        obRect = new Rect(0, 0, rbx, rby);
+        dbRect = new Rect((dstRect.width() - rbx) / 2, dstRect.height() / 2, (dstRect.width() + rbx) / 2, dstRect.height() + obRect.height());
+        value = "未连接";
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawBitmap(bitmap, orRect, dstRect, mPaint);
-        if (valueString != null) {
-            StaticLayout sl= new StaticLayout(valueString, textPaint,
-                    dstRect.width()-4, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-            canvas.translate(0, dstRect.height() / 2);
-            sl.draw(canvas);
+        canvas.drawBitmap(button, obRect, dbRect, mPaint);
+        if (value != null) {
+            canvas.drawText(value, 2 * dstRect.width() / 3, dstRect.height() / 4, mPaint);
         }
     }
 
@@ -201,4 +188,32 @@ public class DrawViewNode extends View {
         setMeasuredDimension(width, height);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        float x = event.getX();
+        float y = event.getY();
+
+        Bitmap record = button;
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (clickable && (x > dbRect.left && x < dbRect.right && y > dbRect.top && y < dbRect.bottom)) {
+                    button = buttonDisable;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                button = record;
+                if (clickable && (x > dbRect.left && x < dbRect.right && y > dbRect.top && y < dbRect.bottom)) {
+                    if (record == buttonOpenEnable) {
+                        node.getmSendCMD().sendCMD(0x31);
+                    } else if (record == buttonDisable) {
+                        node.getmSendCMD().sendCMD(0x30);
+                    }
+                }
+                break;
+        }
+
+        return true;
+    }
 }

@@ -109,9 +109,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
             super.run();
             while(true){
                 if (2 <i || i >5){
+                    sendUDP();
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     send1UDP();
                 }else {
                     sendUDP();
+                    try {
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    send1UDP();
                 }
                 i++;
                 if (i == 6)
@@ -127,7 +139,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     public void sendUDP(){
-        byte[] data= new byte[]{0x21, 0x01, 0x08, 0x05, 0x52, 0x00, 0x00, 0x00, 0x01, 0x39};
+        byte[] data= new byte[]{0x21, 0x04, 0x08, 0x00, 0x52, 0x00, 0x02, 0x54, 0x00, 0x01, 0x00, 0x10, 0x08};
         try {
             MulticastSocket multicastSocket= new MulticastSocket(20000);
             InetAddress group = InetAddress.getByName("224.10.10.10");

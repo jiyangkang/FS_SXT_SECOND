@@ -12,6 +12,7 @@ public class Soil extends Node {
     private Soil(){
         byte[] addr = new byte[]{0x00, 0x06, 0x53};
         setAddr(addr);
+        setName("土壤温湿度");
         mFillDatas = new FillWeatherDataSoil();
         mSendCMD = null;
     }

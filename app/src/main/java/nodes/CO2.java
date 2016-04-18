@@ -15,6 +15,7 @@ public class CO2 extends Node{
         mSendCMD = null;
         mFillDatas = new FillCo2Data();
         setAddr(addr);
+        setName("二氧化碳");
     }
 
     public static CO2 getCo2(){

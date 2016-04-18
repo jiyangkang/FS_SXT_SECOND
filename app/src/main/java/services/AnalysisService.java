@@ -98,6 +98,7 @@ public class AnalysisService extends Service {
         byte[] device = new byte[3];
         System.arraycopy(datas, DataTools.DEVICEADDR_H, device, 0, device.length);
 
+
         //这里重新定义字符串
         thisHash.put(DataTools._DATATYPE, new byte[]{dataType});
         thisHash.put(DataTools._NETTYPE, new byte[]{netType});

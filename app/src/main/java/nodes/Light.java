@@ -14,6 +14,7 @@ public class Light extends Node{
         mSendCMD = null;
         byte[] addr = new byte[]{0x00, 0x04, 0x4C};
         setAddr(addr);
+        setName("光照");
     }
 
 

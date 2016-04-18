@@ -5,14 +5,24 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import nodes.Alarm;
+import nodes.CO2;
+import nodes.Fan;
+import nodes.Infrared;
+import nodes.IrrigationFirst;
+import nodes.IrrigationSecond;
+import nodes.Light;
 import nodes.Node;
 import nodes.NodeInfo;
+import nodes.PM25In;
+import nodes.Soil;
+import nodes.Temperature;
 
 /**
  * Created by jiyangkang on 2016/4/11 0011.
  */
 public class Project {
-    private HashMap<String, Node> nodeSet = new HashMap<>();
+    private HashMap<String, Node> nodeSet;
     private String name;
     private static volatile Project project;
 
@@ -26,7 +36,7 @@ public class Project {
     private JoinProject joinProject;
 
     private Project() {
-        nodeSet = null;
+        nodeSet = new HashMap<>();
         name = null;
         onProjectChanged = null;
     }
@@ -43,19 +53,32 @@ public class Project {
         return project;
     }
 
-    public void setNodeSet(HashMap<String, Node> nodeSet) {
-        this.nodeSet = nodeSet;
-    }
 
     public void setName(String name) {
 
-        if (this.name == null || !this.name.equalsIgnoreCase(name)) {
+        if (!name.equalsIgnoreCase(this.name)) {
+
             this.name = name;
-            joinProject = NodeInfo.projectNodeSet.get(name);
-            setNodeSet(joinProject.joinProject());
+            HashMap<String, Node> set = new HashMap<>();
+            switch (name) {
+                case NodeInfo.PROJECTAG:
+                    joinProject = new SmartAGJoinProject();
+                    break;
+                case NodeInfo.PROJECTHS:
+                    joinProject = new SmartHsJoinProject();
+                    break;
+                default:
+                    break;
+            }
+            joinProject.joinProject(set);
+            Log.d("Hash", set.size() + "");
+            nodeSet = set;
+            Log.d("Hash", nodeSet.size()+"11111");
             if (onProjectChanged != null) {
                 Log.d("PUT", "CHANGE");
-                onProjectChanged.onProjectChange(name);
+                if (!name.equalsIgnoreCase(this.name)) {
+                    onProjectChanged.onProjectChange(name);
+                }
             }
         }
     }
