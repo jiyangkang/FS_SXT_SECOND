@@ -15,7 +15,7 @@ import project.SmartHsJoinProject;
 
 public class NodeInfo {
 
-    public static final int REDUCETIME = 5;
+    public static final int REDUCETIME = 15;
     public static final byte SMARTHS = 0x01;
     public static final byte SMARTAG = 0x02;
 
@@ -62,6 +62,7 @@ public class NodeInfo {
     public static HashMap<String, int[]> projectMaplist = new HashMap<>();
     public static HashMap<String, int[]> viewNodeDrawable = new HashMap<>();
     public static HashMap<String, Integer> normalCtrlDrable = new HashMap<>();
+    public static HashMap<String, Integer> hsCtrlDrawble = new HashMap<>();
 
     static {
         hashList.put("000141", "智能电表");//000141
@@ -106,6 +107,9 @@ public class NodeInfo {
         normalCtrlDrable.put("风扇", R.drawable.fan_ag);
         normalCtrlDrable.put("灌溉一", R.drawable.irr_ag_1);
         normalCtrlDrable.put("灌溉二", R.drawable.irr_ag_2);
+
+        hsCtrlDrawble.put("报警器", R.drawable.alarm_hs);
+        hsCtrlDrawble.put("风扇", R.drawable.fan_hs);
 
     }
 

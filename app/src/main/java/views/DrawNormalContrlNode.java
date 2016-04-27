@@ -24,6 +24,7 @@ import nodes.NodeInfo;
 import project.Project;
 
 /**
+ *
  * Created by jiyangkang on 2016/4/18 0018.
  */
 public class DrawNormalContrlNode extends View {
@@ -52,6 +53,10 @@ public class DrawNormalContrlNode extends View {
         this.onReceived = onReceived;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public void setmName(String mName) {
         this.mName = mName;
         bitmap = BitmapFactory.decodeResource(mContext.getResources(), NodeInfo.normalCtrlDrable.get(mName));
@@ -72,7 +77,7 @@ public class DrawNormalContrlNode extends View {
                         stringBuilder.append(entry.getKey())
                                 .append(":").append(entry.getValue()).append('\n');
 
-                        if (entry.getValue().equals("打开")) {
+                        if (entry.getValue().toString().equalsIgnoreCase("开")) {
                             button = buttonCloseEnable;
                         } else {
                             button = buttonOpenEnable;
@@ -120,7 +125,7 @@ public class DrawNormalContrlNode extends View {
 
         int withMetrics = context.getResources().getDisplayMetrics().widthPixels;
         mPaint = new Paint();
-        mPaint.setTextSize(18 * withMetrics / 1024);
+        mPaint.setTextSize(16 * withMetrics / 1024);
         mPaint.setColor(Color.BLACK);
         mPaint.setAntiAlias(true);
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
@@ -132,7 +137,7 @@ public class DrawNormalContrlNode extends View {
 
         int rx, ry;
 
-        rx = withMetrics * 256 / 1024;
+        rx = withMetrics * 200 / 1024;
         ry = rx * oy / ox;
 
         orRect = new Rect(0, 0, ox, oy);
@@ -147,10 +152,10 @@ public class DrawNormalContrlNode extends View {
         int oby = button.getHeight();
 
         int rbx, rby;
-        rbx = withMetrics * 187 / 1024;
+        rbx = withMetrics * 150 / 1024;
         rby = rbx * oby / obx;
-        obRect = new Rect(0, 0, rbx, rby);
-        dbRect = new Rect((dstRect.width() - rbx) / 2, dstRect.height() / 2, (dstRect.width() + rbx) / 2, dstRect.height() + obRect.height());
+        obRect = new Rect(0, 0, obx, oby);
+        dbRect = new Rect((dstRect.width() - rbx) / 2, dstRect.height() / 2, (dstRect.width() + rbx) / 2, dstRect.height()/2+rby);
         value = "未连接";
     }
 
@@ -160,7 +165,7 @@ public class DrawNormalContrlNode extends View {
         canvas.drawBitmap(bitmap, orRect, dstRect, mPaint);
         canvas.drawBitmap(button, obRect, dbRect, mPaint);
         if (value != null) {
-            canvas.drawText(value, 2 * dstRect.width() / 3, dstRect.height() / 4, mPaint);
+            canvas.drawText(value, 2 * dstRect.width() / 3, dstRect.height() / 3, mPaint);
         }
     }
 
@@ -213,6 +218,7 @@ public class DrawNormalContrlNode extends View {
                 }
                 break;
         }
+        invalidate();
 
         return true;
     }

@@ -11,4 +11,8 @@
     <declare-styleable name="DrawNormalContrlNode">
         <attr name="controlpn" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="DrawCtrlHs">
+        <attr name="controlhs" format="string"/>
+    </declare-styleable>
 </resources>

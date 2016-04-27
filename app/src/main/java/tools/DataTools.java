@@ -60,9 +60,9 @@ public class DataTools {
     public final static int delayBase = 500;
     public final static int delaytimes = 10;
 
-    public final static String webAddr = "http://iot.farsightdev.com/SAWebService.asmx";
+    public final static String webAddr = "http://sxt.farsightdev.com/SXTWebService.asmx";
     public static final String NAMESPACE = "http://tempuri.org/";//命名空间
-    public static final String DEVICE = "000106";//设备号
+    public static final String DEVICE = "080001";//设备号
     public static String userId = "admin";
 
 

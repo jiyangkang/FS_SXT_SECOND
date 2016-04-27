@@ -12,6 +12,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/testan" />
+            <option value="$PROJECT_DIR$/testswitch" />
+            <option value="$PROJECT_DIR$/testview" />
           </set>
         </option>
         <option name="myModules">
@@ -19,6 +21,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/testan" />
+            <option value="$PROJECT_DIR$/testswitch" />
+            <option value="$PROJECT_DIR$/testview" />
           </set>
         </option>
       </GradleProjectSettings>

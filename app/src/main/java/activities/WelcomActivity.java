@@ -65,21 +65,10 @@ public class WelcomActivity extends Activity implements View.OnClickListener {
                     stopService(new Intent(WelcomActivity.this, UDPService.class));
                     String name = msg.getData().getString("project");
                     Project.getProject().setName(name);
-                    Log.d("name", name+"");
+                    Log.d("name", name + "");
                     Intent intent;
                     if (name != null) {
-                        switch (name) {
-                            case NodeInfo.PROJECTAG:
-                                intent = new Intent(WelcomActivity.this, SmartAG.class);
-                                break;
-                            case NodeInfo.PROJECTHS:
-                                intent = new Intent(WelcomActivity.this, SmartHouse.class);
-                                break;
-                            default:
-                                intent = null;
-                                break;
-                        }
-                        onProjectDialog(name, intent);
+                        onProjectDialog(name);
                     }
                     break;
                 default:
@@ -271,24 +260,32 @@ public class WelcomActivity extends Activity implements View.OnClickListener {
     }
 
     //get Project Info
-    private void onProjectDialog(final String name, final Intent intent) {
+    private void onProjectDialog(final String name) {
         AlertDialog.Builder builder = new AlertDialog.Builder(WelcomActivity.this);
         builder.setTitle("项目：");
-        if (name != null)
+        if (name != null) {
             builder.setMessage(name);
 
-        isUDP = false;
+            isUDP = false;
+            final Intent intent1 = new Intent(WelcomActivity.this, SmartAG.class);
+            final Intent intent2 = new Intent(WelcomActivity.this, SmartHouse.class);
 
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (intent != null) {
-                    startActivity(intent);
+
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (name) {
+                        case NodeInfo.PROJECTAG:
+                            startActivity(intent1);
+                            break;
+                        case NodeInfo.PROJECTHS:
+                            startActivity(intent2);
+                            break;
+                    }
+                    dialog.dismiss();
                 }
-
-                dialog.dismiss();
-            }
-        });
+            });
+        }
         builder.create().show();
     }
 }

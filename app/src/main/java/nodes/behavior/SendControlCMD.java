@@ -1,8 +1,11 @@
 package nodes.behavior;
 
+import android.util.Log;
+
 import nodes.NodeInfo;
 import tools.DataTools;
 import tools.MathTools;
+import tools.StringTools;
 
 /**
  *
@@ -22,6 +25,7 @@ public class SendControlCMD implements SendCMD{
         setCmd(which);
         try {
             DataTools.sends.put(cmd);
+            Log.d("CMD++", StringTools.changeIntoHexString(cmd, true));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

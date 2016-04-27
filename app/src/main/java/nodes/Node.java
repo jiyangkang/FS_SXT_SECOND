@@ -19,6 +19,7 @@ public abstract class Node {
     private int reduceTime = 0;//断点判断
     private byte[] addr;//节点地址和节点类型
     private HashMap<String, String> value = new HashMap<>();//状态或数据
+    private byte netType = 0x00;
 
     private OnValueReceived mOnValueReceived;//数据接口
     private IsConnect mIsConnect;//通断接口
@@ -26,6 +27,7 @@ public abstract class Node {
 
     SendCMD mSendCMD;//命令发送行为
     FillDatas mFillDatas;//数据填充行为
+
 
     public SendCMD getmSendCMD() {
         return mSendCMD;
@@ -139,7 +141,7 @@ public abstract class Node {
      * @return netType
      */
     public byte getNetType() {
-        return NodeInfo.netType;
+        return this.netType;
     }
 
     /**
@@ -148,7 +150,7 @@ public abstract class Node {
      * @param netType netType
      */
     public void setNetType(byte netType) {
-        NodeInfo.netType = netType;
+        this.netType = netType;
     }
 
 
@@ -172,16 +174,11 @@ public abstract class Node {
                 }
             }
             isConnect = false;
-            if (mIsConnect != null){
+            if (mIsConnect != null) {
                 mIsConnect.isConnect(false);
             }
             this.interrupt();
         }
     }
-
-//    public void sendCMD(int what){
-//        mSendCMD.sendCMD(what);
-//    }
-
 
 }

@@ -37,7 +37,7 @@ public class FillWeatherDataSoil implements FillDatas {
         if (w >= 100 || w <= -100){
             wStringBuilder.append(w);
             wStringBuilder.insert(wStringBuilder.toString().length() - 2 , '.');
-        } else if (w <= 10 || w <= -10){
+        } else if (w >= 10 || w <= -10){
             wStringBuilder.append(w);
             wStringBuilder.insert(wStringBuilder.toString().length() - 2 , "0.");
         } else {

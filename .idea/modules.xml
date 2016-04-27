@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/FS_SXT.iml" filepath="$PROJECT_DIR$/FS_SXT.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/testan/testan.iml" filepath="$PROJECT_DIR$/testan/testan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testswitch/testswitch.iml" filepath="$PROJECT_DIR$/testswitch/testswitch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testview/testview.iml" filepath="$PROJECT_DIR$/testview/testview.iml" />
     </modules>
   </component>
 </project>

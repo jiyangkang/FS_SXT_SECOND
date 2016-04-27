@@ -156,7 +156,7 @@ public class SoapTools{
         String result = null;
         String ip = "www.baidu.com";
         try {
-            Process p = Runtime.getRuntime().exec("ping -c 3 -w 100" + ip);
+            Process p = Runtime.getRuntime().exec("ping -c 3 -w 100 " + ip);
 
             int status = p.waitFor();
 

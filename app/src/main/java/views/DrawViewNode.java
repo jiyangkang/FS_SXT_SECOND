@@ -18,7 +18,6 @@ import android.view.View;
 import com.hqyj.dev.ji.fs_sxt.R;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import nodes.Node;
@@ -26,6 +25,7 @@ import nodes.NodeInfo;
 import project.Project;
 
 /**
+ *
  * Created by jiyangkang on 2016/4/17 0017.
  */
 public class DrawViewNode extends View {
@@ -78,6 +78,7 @@ public class DrawViewNode extends View {
                         Map.Entry entry = (Map.Entry) o;
                         stringBuilder.append(entry.getKey())
                                 .append(":").append(entry.getValue()).append('\n');
+
                     }
                     if (onReceived != null) {
                         onReceived.received(stringBuilder);
@@ -122,14 +123,14 @@ public class DrawViewNode extends View {
 
         int withMetrics = context.getResources().getDisplayMetrics().widthPixels;
         mPaint = new Paint();
-        mPaint.setTextSize(18 * withMetrics / 1024);
+        mPaint.setTextSize(14 * withMetrics / 1024);
         mPaint.setColor(Color.BLACK);
         mPaint.setAntiAlias(true);
         mPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
         textPaint = new TextPaint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(18 * withMetrics / 1024);
+        textPaint.setTextSize(14 * withMetrics / 1024);
 
         if (projectType != null) {
             switch (projectType) {
@@ -172,7 +173,7 @@ public class DrawViewNode extends View {
         if (valueString != null) {
             StaticLayout sl= new StaticLayout(valueString, textPaint,
                     dstRect.width()-4, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
-            canvas.translate(0, dstRect.height() / 2);
+            canvas.translate(0, dstRect.height()*3 / 5);
             sl.draw(canvas);
         }
     }

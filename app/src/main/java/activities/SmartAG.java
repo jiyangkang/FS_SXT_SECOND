@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import activities.fragmentlist.ChangeNet_AG;
+import activities.fragmentlist.CodeAndTel_ag;
+import activities.fragmentlist.CtrolNode_AG;
 import activities.fragmentlist.ViewFragment_ag;
 import nodes.Node;
 import nodes.NodeInfo;
@@ -39,11 +42,12 @@ import tools.StringTools;
 public class SmartAG extends FragmentActivity {
     HashMap<String, Node> thisList;
     private ViewPager mViewPager;
-    private int screenWith;
-    private int currentTab;
     private boolean isChanging;
     private List<Fragment> fragmentList;
     private Fragment view_ag;
+    private Fragment ctrl_ag;
+    private Fragment change_net;
+    private Fragment code_tel;
 
     private Project project;
 
@@ -79,6 +83,14 @@ public class SmartAG extends FragmentActivity {
                     byte[] device = thisHash.get(DataTools._DEVICE);
                     byte[] data = thisHash.get(DataTools._DATA);
 
+                    if (netType[0] != NodeInfo.netType){
+                        Intent intent = new Intent();
+                        intent.putExtra("netType", netType[0]);
+                        intent.setAction("netType");
+                        sendBroadcast(intent);
+                        NodeInfo.netType = netType[0];
+                    }
+
                     Log.d("datas", "havadata"+dataType[0]+StringTools.changeIntoHexString(device,false));
                     if (dataType[0] == DataTools.PROJECTTYPE) {
                         if (data[0] == NodeInfo.SMARTHS) {
@@ -100,11 +112,11 @@ public class SmartAG extends FragmentActivity {
                         if (node != null){
                             Log.d("Data", "this is for test");
                             node.setValue(data);
+                            node.setNetType(netType[0]);
                         }else {
                             Log.d("Data", "this is null");
                         }
-//                        thisList.get(name).setValue(data);
-//                        thisList.get(NodeInfo.hashList.get(StringTools.changeIntoHexString(device,false))).setNetType(netType[0]);
+
                     }
                 }
             });
@@ -158,8 +170,13 @@ public class SmartAG extends FragmentActivity {
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         fragmentList = new ArrayList<Fragment>();
         view_ag = new ViewFragment_ag();
+        ctrl_ag = new CtrolNode_AG();
+        change_net = new ChangeNet_AG();
+        code_tel = new CodeAndTel_ag();
         fragmentList.add(view_ag);
-
+        fragmentList.add(ctrl_ag);
+        fragmentList.add(change_net);
+        fragmentList.add(code_tel);
     }
 
     private void changeProject() {

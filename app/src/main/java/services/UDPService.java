@@ -1,10 +1,14 @@
 package services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.net.MulticastSocket;
 
 import tools.DataTools;
 import tools.StringTools;
@@ -18,6 +22,8 @@ public class UDPService extends Service{
     private boolean threadOn = false;
     private GetThread mGetThread;
     private SendThread mSendThread;
+    private WifiManager wifiManager;
+    private WifiManager.MulticastLock multicastLock;
 
     @Nullable
     @Override
@@ -28,6 +34,8 @@ public class UDPService extends Service{
     @Override
     public void onCreate() {
         super.onCreate();
+        wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        multicastLock = wifiManager.createMulticastLock("multicast.test");
     }
 
     @Override
@@ -71,7 +79,9 @@ public class UDPService extends Service{
             super.run();
             while(threadOn){
                 Log.d("UDP", "UDPGETTHREAD--OK");
+                multicastLock.acquire();
                 byte[] datas = UdpTools.getFromUDP();
+                multicastLock.release();
                 if (datas != null){
                     try {
                         Log.d("get", StringTools.changeIntoHexString(datas, true));
@@ -100,8 +110,9 @@ public class UDPService extends Service{
                     byte[] datas = DataTools.sends.take();
                     if (datas == DataTools.ENDTHREAD)
                         break;
+                    multicastLock.acquire();
                     UdpTools.sendToUDP(datas);
-
+                    multicastLock.release();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
