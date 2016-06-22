@@ -1,13 +1,10 @@
 package nodes;
 
 
-import android.util.Log;
-
 import java.util.HashMap;
 
 import nodes.behavior.FillDatas;
 import nodes.behavior.SendCMD;
-import tools.DataTools;
 
 /**
  * base Node

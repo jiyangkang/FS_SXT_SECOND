@@ -52,6 +52,10 @@ public class DrawCtrlHs extends View {
         this.onReceived = onReceived;
     }
 
+    public OnReceived getOnReceived(){
+        return onReceived;
+    }
+
     public void setValue(String value) {
         this.value = value;
     }
